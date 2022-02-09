@@ -1,0 +1,32 @@
+---
+title: "Learning"
+author: "Thao Phuong Pham"
+date: "2/9/2022"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 20220902
+
+## Escaping from character encoding hell in R on Windows
+
+.xlsx dùng dấu tiếng Việt được
+
+.csv không dùng dấu tiếng Việt được
+
+Thế là mình dùng `readxl::read_xlsx()` để import file dữ liệu của mình vào R.
+
+sau khi import vào thì R đọc được tất cả mọi chữ tiếng Việt **ngoại trừ** một số chữ không đọc được.
+May mắn sao là cái biểu đồ mình làm nó ngay đúng cái chữ mà R nó không nhận dạng được đó là chữ bưởi và bơ.
+
+Sau đấy thì mình đọc được bài [https://www.r-bloggers.com/2016/06/escaping-from-character-encoding-hell-in-r-on-windows/](Escaping from character encoding hell in R on Windows).
+
+Mình làm thử theo mọi bước, lưu file ở dạng .csv có UTF-8 encoding, rồi dùng `readr::read_csv()` để import file vô. Kết quả là R vẫn không nhận diện được bơ với bưởi.
+
+Sau nhiều hồi chửi thề thì mình thử `Sys.setlocale("LC_ALL", "Vietnamese")` theo một câu trả lời trên [https://stackoverflow.com/questions/20577764/set-locale-to-system-default-utf-8](Stackoverflow) và thành công.
+
+Mình sẽ để link tất cả những bài viết liên quan đến character encoding ở đây, sau này nhất định phải tìm hiểu xem tại sao R không đọc được chữ bưởi và bơ. Tại sao phải dùng Sys.setlocate thì R mới đọc được. 
+

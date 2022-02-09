@@ -1,0 +1,91 @@
+No,village,area.total,area.NLKH,area.forestry,land.increase,land.decrease,water.source,soil.characteristic,land.slope,water.status
+1100,Le Tri,2.2,0.7,1.5,0,1,3,Dat cat pha,Doc it,NA
+1101,Le Tri,2,2,0,1,0,2,NA,NA,NA
+1102,Le Tri,3,0.8,2.2,,,,Dat lan da,Doc vua,Thieu nuoc
+1103,Le Tri,2.1,0.9,1.2,,,2,NA,NA,NA
+1104,Le Tri,4,4,0,1,0,1,NA,NA,Co nuoc
+1105,Le Tri,0.7,0.7,0,0,0,3,NA,NA,NA
+1106,Le Tri,4,4,0,0,1,4,NA,NA,NA
+1107,Le Tri,1.5,1.5,0,0,0,2,Dat lan da,Doc vua,Co nuoc
+1200,Le Tri,3.5,2,1.5,0,0,3,Dat xam den,NA,NA
+1201,Le Tri,1.5,1.5,0,0,0,2,Dat cat pha,Doc it,Co nuoc
+1202,Le Tri,0.6,0.6,0,0,0,23,Dat xam den,Doc cao,NA
+1203,Le Tri,3.6,3.6,0,0,0,3,NA,NA,NA
+1300,Le Tri,0.88,0.88,0,0,0,4,NA,NA,Thieu nuoc
+1301,Le Tri,0.8,0.8,0,0,0,3,Dat cat pha,NA,Thieu nuoc
+1302,Le Tri,1,1,0,0,0,1,NA,NA,Co nuoc
+1303,Le Tri,1.2,1.2,0,0,0,4,Dat xam den,Doc cao,Thieu nuoc
+1304,Le Tri,4,4,0,1,0,1,NA,NA,Co nuoc
+1305,Le Tri,2.2,1,1.2,0,0,3,Dat cat pha,Doc vua,Thieu nuoc
+1306,Le Tri,1.5,1,0.5,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+1307,Le Tri,1.5,1.5,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+1308,Le Tri,2,2,0,0,0,1,NA,NA,Thieu nuoc
+1400,Le Tri,1,1,0,0,0,3,Dat cat pha,NA,Thieu nuoc
+1401,Le Tri,1,1,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+1402,Le Tri,1,1,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+1403,Le Tri,0.7,0.7,0,0,0,3,NA,NA,Thieu nuoc
+2108,Ba Chuc,0.8,0.5,0.3,,,2,Dat lan da,Doc vua,Co nuoc
+2109,Ba Chuc,4,4,0,1,0,3,Dat lan da,Doc vua,Thieu nuoc
+2110,Ba Chuc,1.8,1,0.8,0,0,,NA,NA,NA
+2111,Ba Chuc,1.6,1.6,0,0,0,1,NA,NA,Co nuoc
+2112,Ba Chuc,0.25,0.25,0,0,1,3,NA,NA,NA
+2113,Ba Chuc,1.25,0.25,1,0,1,,NA,Doc cao,Thieu nuoc
+2114,Ba Chuc,1.5,1.5,0,0,0,3,NA,NA,NA
+2115,Ba Chuc,2.18,2.18,0,0,0,3,Dat lan da,NA,NA
+2116,Ba Chuc,2.35,2.35,0,0,0,3,NA,NA,NA
+2117,Ba Chuc,3.2,2.1,1.1,0,1,23,NA,NA,NA
+2204,Ba Chuc,3,3,0,0,0,3,NA,NA,NA
+2205,Ba Chuc,1,1,0,0,1,3,NA,NA,NA
+2206,Ba Chuc,1,1,0,0,0,13,Dat cat pha,Doc vua,Co nuoc
+2207,Ba Chuc,1.7,0.8,0.9,0,0,3,NA,NA,NA
+2208,Ba Chuc,0.6,0.6,0,0,0,3,Dat lan da,Doc vua,Thieu nuoc
+2209,Ba Chuc,5,5,0,0,0,3,NA,NA,NA
+2210,Ba Chuc,1.2,1,0.2,0,0,13,NA,NA,NA
+2211,Ba Chuc,1,1,0,0,0,3,Dat lan da,Doc cao,Thieu nuoc
+2309,Ba Chuc,1.33,1.33,0,0,0,1,Dat cat pha,NA,Co nuoc
+2310,Ba Chuc,2.7,2.7,0,1,0,1,Dat cat pha,NA,Co nuoc
+2311,Ba Chuc,1,1,0,0,1,4,Dat xam den,Doc vua,Thieu nuoc
+2312,Ba Chuc,0.4,0.3,0.1,0,0,3,Dat xam den,Doc cao,Thieu nuoc
+2313,Ba Chuc,1,1,0,0,0,3,NA,NA,NA
+2314,Ba Chuc,3.6,3.6,0,0,0,1,Dat cat pha,Doc vua,Co nuoc
+2315,Ba Chuc,2,1,1,0,0,3,NA,NA,Thieu nuoc
+2316,Ba Chuc,0.6,0.6,0,0,0,2,NA,NA,Co nuoc
+2317,Ba Chuc,7,4,3,0,0,3,Dat xam den,NA,Thieu nuoc
+2318,Ba Chuc,3,3,0,1,0,3,NA,NA,NA
+2319,Ba Chuc,5,3,2,1,0,3,NA,NA,Thieu nuoc
+2404,Ba Chuc,0.6,0.6,0,0,1,3,Dat xam den,Doc cao,Thieu nuoc
+2405,Ba Chuc,3.4,3.4,0,0,0,3,Dat cat pha,Doc it,Thieu nuoc
+2406,Ba Chuc,2.5,2.5,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+2407,Ba Chuc,1.7,1.7,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+2408,Ba Chuc,3,0.5,2.5,0,0,12,Dat xam den,Doc vua,Co nuoc
+2409,Ba Chuc,2,0.4,1.6,0,0,34,Dat cat pha,Doc vua,Thieu nuoc
+2410,Ba Chuc,6,6,0,0,0,13,Dat cat pha,Doc it,Thieu nuoc
+2411,Ba Chuc,1.7,1.7,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+2412,Ba Chuc,1,1,0,0,0,3,Dat cat pha,Doc it,Thieu nuoc
+2413,Ba Chuc,0.4,0.4,0,0,0,3,NA,NA,NA
+2414,Ba Chuc,1.3,1.3,0,0,0,3,NA,NA,NA
+2500,Ba Chuc,3,3,0,0,0,3,NA,NA,NA
+2501,Ba Chuc,0.5,0.5,0,0,0,3,NA,Doc vua,NA
+2502,Ba Chuc,2,2,0,0,0,3,Dat cat pha,Doc vua,Thieu nuoc
+2503,Ba Chuc,2,2,0,0,0,3,Dat cat pha,Doc vua,Thieu nuoc
+2504,Ba Chuc,2.7,2.7,0,0,0,3,Dat xam den,Doc cao,NA
+2505,Ba Chuc,2,2,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+2506,Ba Chuc,2,1,1,0,0,3,NA,NA,NA
+2507,Ba Chuc,7,7,0,0,0,3,Dat xam den,Doc cao,Thieu nuoc
+2508,Ba Chuc,1.5,1.5,0,1,0,3,Dat cat pha,Doc vua,Thieu nuoc
+2509,Ba Chuc,1.8,1.8,0,0,0,3,Dat cat pha,Doc vua,Thieu nuoc
+2510,Ba Chuc,3,3,0,1,0,3,NA,NA,NA
+3118,O Lam,2.95,1,1.95,,,,NA,NA,NA
+3119,O Lam,1.8,0.75,1.05,1,0,3,NA,NA,NA
+3120,O Lam,2.3,1.8,0.5,1,0,3,Dat lan da,Doc vua,Thieu nuoc
+3121,O Lam,2.2,1,1.2,1,0,3,Dat lan da,Doc vua,NA
+3122,O Lam,1.8,0.8,1,1,0,2,Dat xam den,Doc it,Co nuoc
+3212,O Lam,1,0.6,0.4,0,0,3,NA,NA,NA
+3213,O Lam,0.5,0.5,0,1,0,3,Dat lan da,Doc vua,Co nuoc
+3511,O Lam,0.5,0.25,0.25,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+3512,O Lam,0.2,0.2,0,0,0,3,NA,NA,NA
+3513,O Lam,0.4,0.4,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+3514,O Lam,0.2,0.2,0,0,0,3,Dat xam den,NA,NA
+3515,O Lam,1,1,0,0,0,3,Dat cat pha,NA,NA
+3516,O Lam,0.5,0.5,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc
+3516,O Lam,0.3,0.3,0,0,0,3,Dat xam den,Doc vua,Thieu nuoc

@@ -1,7 +1,18 @@
+---
+title: "workingReport"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 **Bảy Núi An Giang Project**
 
-Raw data -> **data processing** -> data analyzing -> communicating results
+Raw data -> data processing -> data analyzing -> communicating results
 
+
+# Data processing
 
 The data processing contains these works:  
 
@@ -13,8 +24,6 @@ The data processing contains these works:
 6. Tidy data  
 7. Subset data as needed  
 8. Write data to external files.  
-
-**Library**
 
 
 **29122021**
@@ -62,7 +71,7 @@ Read the data into R and use it to correct all objects that have wrong data type
 Case-sensitive can causes problem when working with categorical data. 
 So it's better to uppercase all the text.
 
-### Remove unused rows and columns
+### Remove 
 
 There are two duplicated columns (`income.2018.1` and `income.2018.2`). Remove one.
 
@@ -81,37 +90,4 @@ So I have to manually changes those values accordingly.
 condition: `area.total == area.NLKH + area.forestry`
 
 First, convert all the NAs in the area.forestry to 0. Then check for the condition above.
-
-
-## 6. Tidy data
-
-## unit conversion
-
-Problems:
-
-- There are places where units are not uniform, for example, kilogram and ton are using simultaneously => change all to TAN
-
-- 
-
-**05012022**
-
-Export a data file that contains all data related to plant model, that is variables `model.total:model2.intercrop3.yield.unit`.
-
-Name of this data file is `plantModel.csv`
-
-There are two characteristics that need to be handle seperatedly in this dataset, that is: yield and plant number.
-
-1. `yield`
-
-**Unit conversion: KG to TAN**
-
-- choose variables based on string  
-- 
-
-**04022022**
-
-Mình đã tự nhập lại phần dữ liệu bên Tri Tôn từ các phiếu điều tra.
-
-Vẽ histogram với biến là các loài cây trồng xuất hiện trong các mô hình NLKH được khảo sát.
-Sau khi xem xết biểu đồ thì mình chia 
 

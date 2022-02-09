@@ -1,0 +1,120 @@
+---
+title: "dataProcessing"
+author: "Thao Phuong Pham"
+date: "1/5/2022"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())
+```
+
+**Bảy Núi An Giang Project**
+
+Raw data -> **data processing** -> data analyzing -> communicating results
+
+
+The data processing contains these works:  
+
+1. Load the raw dataset  
+2. Display structure and overall information of the data set: using `str()`  
+3. From the result of `str()`, decide which variables need to be modified  
+4. Dealing with missing values  
+5. Using knowledge to check for suspected wrong data  
+6. Tidy data  
+7. Subset data as needed  
+8. Write data to external files. 
+
+**Library**
+
+```{r load-library, warning=FALSE, message=FALSE}
+library(dplyr)
+library(data.table)
+library(stringi)
+library(tidyselect)
+
+```
+
+
+## 1. Load the raw dataset
+
+Using MS Excel to look at the data interactively and there are things that I need to take care of:  
+
+1. A title (row 1) that need to be remove  
+2. Second row containing header (columns' name) that are not suitable for data analyzing
+
+Using `readxl::read_xlsx()` to load the data.
+
+```{r load-dataset}
+AnGiangData <- readxl::read_xlsx("data/rawAnGiangData.xlsx", sheet = 1, skip = 2, col_names = FALSE)
+
+```
+
+Create a `variable.txt` file containing all the names of the dataset's columns, load it to R and use `colnames()` to assign names.
+```{r rename-column}
+variable <- read.table("data/variable.txt")
+colnames(AnGiangData) <- variable$V1
+```
+
+## 2. Display structure and overall information of the data set: using `str()`
+```{r data-structure}
+str(AnGiangData)
+
+```
+
+`str()` gives result that:
+
+- the data type of some variables are wrongly decided.  
+- the dataset contains non-English text that cannot be presented in R.  
+- text contains a mix of uppercase and lowercase.  
+
+## 3. From the result of `str()`, decide which variables need to be modified 
+
+### uppercase and convert all the text to Latin
+
+At first, I decided to work with the objects' data type and then moving to manipulate text case and coding style.
+However, I quickly found out that, `stri_trans_general()` and `toupper` convert all things to character type.
+So it's better to work with the data type at the end.
+```{r text-cleaning}
+AnGiangData <- AnGiangData %>% 
+  mutate(across(everything(), stri_trans_general, "latin-ascii")) %>% 
+  mutate(across(everything(), toupper))
+
+```
+
+### decide data types for the objects
+
+I manually create text file (outside R) called `dataType.txt` that contains the right data type for all the variables.
+Read the data into R and use it to correct all objects that have wrong data type.
+
+```{r data-type-modify}
+dataType <- read.table("data/dataType.txt", header = F)
+
+charIndex <- which(dataType$V1 == "character")
+AnGiangData[,charIndex] <- lapply(AnGiangData[,charIndex], as.character)
+
+numIndex <- which(dataType$V1 == "numeric")
+AnGiangData[,numIndex] <- lapply(AnGiangData[,numIndex], as.numeric)
+
+facIndex <- which(dataType$V1 == "factor")
+AnGiangData[,facIndex] <- lapply(AnGiangData[,facIndex], factor)
+
+```
+
+### Remove unused rows and columns
+
+There are two duplicated columns (`income.2018.1` and `income.2018.2`). Remove one.
+
+There are 3 rows at the end of the dataset that is NULL.
+
+```{r remove-row-column}
+AnGiangData <- AnGiangData %>% 
+  select(!c(income.2018y)) %>% 
+  slice(1:181)
+
+```
+
+
+
+
