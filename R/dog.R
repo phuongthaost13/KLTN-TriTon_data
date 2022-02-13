@@ -4,99 +4,38 @@
 
 library(dplyr)
 library(ggplot2)
-library(Benchmarking)
 library(frontier)
+library(readr)
 
-dt <- read.csv("data/TE.csv", stringsAsFactors = F)
+dt <- read_csv("data/TE2.csv")
 dt <- dt %>% 
   filter(!(plant == ""))
 
-## Histogram show frequency of plants appearing in the NLKH model
-plant <- within(dt,
-                plant <- factor(plant, 
-                                levels = names(sort(table(plant),
-                                                    decreasing = FALSE))))
+## TE calculate
 
-ggplot(plant)+
-  geom_bar(aes(x = plant), binwidth =1)+
-  coord_flip()
+yield_dt <- dt %>% 
+  filter(!(yield == 0 | plant.year == 0 | area == 0 | plant.number == 0))
 
-## 
+## Tầm vông TE
+tam_vong <- yield_dt[yield_dt$plant == "tầm vông",]
 
-## remove plants that 
-common.plant <- dt %>% 
-  group_by(plant) %>% 
-  count() %>% 
-  filter(!(n < 5))
+prodSfa_tam_vong <- sfa(log(yield) ~ log(area) + log(plant.number) | plant.year, data = tam_vong)
+tam_vong_summary <- summary(prodSfa_tam_vong)
+range(efficiencies(prodSfa_tam_vong))
 
-common.plant.dt <- dt %>% 
-  filter(plant %in% common.plant[[1]])
+## Xoài TE
+xoai <- yield_dt[yield_dt$plant == "xoài",]
 
-plant_history <- common.plant.dt %>% 
-  group_by(plant.year,plant) %>% 
-  count()
+prodSfa_xoai <- sfa(log(yield) ~  log(area) + log(plant.number) | plant.year , data = xoai)
+xoai_summary <- summary(prodSfa_xoai)
+range(efficiencies(prodSfa_xoai))
 
-ggplot(plant_history, aes(x = plant.year, y = n, color = plant)) +
-  geom_line(size = 1, position = position_jitter())+
-  theme_bw() + theme(legend.position = "none")+
-  ggrepel::geom_text_repel(aes(x = plant.year, y = n, label = plant), data = plant_history)
-#facet_wrap(~plant)#+
-xlim(c(1970,2018))
+## Xoài cát TE
+xoai_c <- yield_dt[yield_dt$plant == "xoài c",]
 
-which(dt$plant.Number >= 30000)
-
-
-## tam vong data
-tam.vong <- dt[dt$plant == "tam vong",]
-
-
-prodCD <- lm(log(yield) ~ log(plant.year) + log(area) + log(plant.number), data = tam.vong)
-summary(prodCD)
-
-prodSfa <- sfa(log(yield) ~ log(plant.year) + log(area) + log(plant.number), data = tam.vong)
-summary(prodSfa)
-
-plot(sort(efficiencies(prodSfa)))
-
-
-## xoai data
-xoai <- dt[dt$plant == "xoai",]
-
-prodCD <- lm(log(yield) ~ log(plant.year) + log(area) + log(plant.number), data = xoai)
-summary(prodCD)
-
-prodSfa <- sfa(log(yield) ~ log(plant.year) + log(area) + log(plant.number), data = xoai)
-summary(prodSfa)
-
-plot(sort(efficiencies(prodSfa)))
-
-
-## xoai c data
-xoai.c <- dt[dt$plant == "xoai c",]
-
-prodCD <- lm(log(yield) ~ log(plant.year) + log(area) + log(plant.number), data = xoai.c)
-summary(prodCD)
-
-prodSfa <- sfa(log(yield) ~ log(plant.year) + log(area) + log(plant.number), data = xoai.c)
-summary(prodSfa)
-
-plot(sort(efficiencies(prodSfa)))
-
-## buoi
-buoi <- dt[dt$plant == "xoai c",]
-
-prodCD <- lm(log(yield) ~ log(plant.year) + log(area) + log(plant.number), data = buoi)
-summary(prodCD)
-
-prodSfa <- sfa(log(yield) ~ log(plant.year) + log(area) + log(plant.number), data = buoi)
-summary(prodSfa)
-
-plot(sort(efficiencies(prodSfa)))
-
-
-ggplot(economic_plant_plot) +
-  geom_bar(mapping = aes(x = village, fill = plant), position = "fill", binwidth = 1, alpha = 1.5)+
-  theme_minimal()
+prodSfa_xoai_c <- sfa(log(yield) ~  log(area) + log(plant.number) | plant.year , data = xoai_c)
+xoai_c_summary <- summary(prodSfa_xoai_c)
+range(efficiencies(prodSfa_xoai_c))
 
 
 ## Barplot shows percentage of plants appearing in the NLKH model

@@ -7,26 +7,14 @@ output:
     keep_md: yes
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
-```
 
-```{r}
-library(knitr)
-library(tinytex)
-opts_chunk$set(dev="png", 
-               dev.args=list(type="cairo"),
-               dpi=96)
-```               
+
+
               
                
-```{r load-library}
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(ggrepel)
-library(readr)
-Sys.setlocale("LC_ALL", "Vietnamese") ## DCm cái này quan trọng lắm
+
+```
+## [1] "LC_COLLATE=Vietnamese_Vietnam.1258;LC_CTYPE=Vietnamese_Vietnam.1258;LC_MONETARY=Vietnamese_Vietnam.1258;LC_NUMERIC=C;LC_TIME=Vietnamese_Vietnam.1258"
 ```
 
 ***Câu hỏi nghiên cứu:***
@@ -48,46 +36,19 @@ Hiệu quả kĩ thuật sẽ được tính dựa trên phương trình sau: n�
 
 - Cây trồng quan trọng trong tương lai ~ số lượng cây trồng + diện tích cây trồng 
 
-- Nhân tố ảnh hưởng: nhân tố ảnh hưởng này sẽ phụ thuộc vào quyết định của người trồng và các chính sách của địa phương. Các nhân tố thuộc vào quyết định của người trồng bao gồm: tuổi người nông dân + kinh nghiệm làm nông + xã + diện tích đất + tỉ lệ lao động nông nghiệp/tổng lao động + dân tộc
+- Nhân tố ảnh hưởng: nhân tố ảnh hưởng này sẽ phụ thuộc vào quyết định của người trồng và các chính sách của địa phương. Các nhân tố thuộc vào quyết định của người trồng bao gồm: tuổi người nông dân + kinh nghiệm làm nông + xã + diện tích đất + tỉ lệ lao động nông nghiệp/tổng lao động + 
 
 # Thực trạng sản xuất
 
-```{r load-data}
-dt <- read_csv(here::here("data/TE2.csv"), locale = locale(encoding = "UTF-8")) ## Te2.csv là file csv UTF-8 encoding
-dt <- dt %>% 
-  filter(!(plant == ""))
-```
-
-```{r total}
-plant_total <- dt %>% 
-  count(plant)
-
-model_total <- nrow(unique(dt[c("record", "index")])) ## học hỏi
-```
 
 
-```{r}
-plant_percent <- dt %>% 
-  group_by(plant) %>% 
-  summarise(count = n()) %>% 
-  mutate(plant = factor(plant),
-         percent = count/model_total,
-         label = scales::percent(percent)) %>% 
-  arrange(desc(percent))
 
 
-ggplot(plant_percent, aes(x=reorder(plant,percent), y=percent, label=label))+
-  geom_bar(stat = "identity")+
-  geom_text(hjust = -0.3)+
-  coord_flip()+
-  theme_bw()+
-  scale_y_continuous(labels = scales::percent_format())+
-  xlab("Cây trồng") + ylab("Phần trăm")+
-  ggtitle("Biểu đồ 1. Tỉ lệ xuất hiện của cây trồng trong tổng số mô hình")
-```
+
+![](report_files/figure-docx/unnamed-chunk-2-1.png)<!-- -->
 
 
-Tổng số loài cây xuất hiện trong các mô hình NLKH được khảo sát là `r length(plant_total$plant)` loài, với cây rừng chủ yếu là sao, tầm vông trồng xen với cây ăn quả chủ yếu là các giống xoài. 
+Tổng số loài cây xuất hiện trong các mô hình NLKH được khảo sát là 38 loài, với cây rừng chủ yếu là sao, tầm vông trồng xen với cây ăn quả chủ yếu là các giống xoài. 
 Đặc trưng của những cây trồng này chính là cần thời gian kiến thiết cơ bản, hoặc cần thời gian nhiều năm mới cho thu hoạch. Do đó, những quyết định trồng cây trong quá khứ có kết quả là nguồn thu của hiện tại và những quyết định trồng hay thay đổi cơ cấu cây trồng của hiện tại sẽ ảnh hưởng đến thu nhập trong tương lai.
 
 Xác định được những yếu tố ảnh hưởng đến việc ra quyết định của người nông dân sẽ giúp chính quyền địa phương đưa ra được chính sách về thị trường, kĩ thuật canh tác hỗ trợ.
@@ -101,140 +62,52 @@ Theo biểu đồ 2, lịch sử phát triển nông nghiệp trên vùng đồi
 Năm 1993, chương trình 327 của chính phủ đã xây dựng chính sách cho việc sử dụng đất trống, đồi núi trọc, rừng, bãi bồi ven biển và mặt nước, tạo điều kiện cho người dân trồng rừng và cây ăn quả để phủ xanh đồi trọc, cải thiện kinh tế. Chính phủ đã hỗ trợ giống và giao đất, khuyến khích người dân canh tác nông nghiệp kết hợp với trồng rừng. Trong số 21 nông hộ trồng sao trả lởi khảo sát, chỉ duy nhất 1 hộ tự bỏ chi phí cho việc trồng sao, tất cả những hộ khác đều được nhà nước hỗ trợ.
 Đó là lí do tại sao bắt đầu từ thời điểm đó, sao và tầm vông được trồng rất nhiều ở Tri Tôn. 
 
-```{r plant-history}
-plant_history <- dt %>% 
-  group_by(plant.year,plant) %>% 
-  summarise(count = n()) 
-
-
-ggplot(plant_history, aes(x = plant.year, y = count, color = plant)) +
-  geom_jitter(height = 0.1)+
-  theme_bw() + theme(legend.position = "none")+
-  ggrepel::geom_text_repel(aes(x = plant.year, y = count, label = plant), max.overlaps = 30, data = plant_history)+
-  annotate("point", x = 1993, y = 2.5, colour = "black", size = 3)+
-  annotate("text", x = 1993, y = 2.5, label = "1993", colour = "black", vjust = -0.5)+
-  xlab("Năm trồng") + ylab("Tổng số mô hình trồng loại cây")+
-  ggtitle("Biểu đồ 2. Thời điểm cây được trồng")
-```
+![](report_files/figure-docx/plant-history-1.png)<!-- -->
 
 
 Sau năm 2010, người dân ở Tri Tôn trồng thêm các loại cây ăn quả cho giá trị kinh tế cao như bưởi, mãng cầu, bơ và một số cây dược liệu như nghệ. Theo biểu đồ 3, hầu hết các loại cây trồng này đều được trồng từ khoảng năm 2015 trở về sau, chưa cho năng suất và chưa đánh giá được hiệu quả và tính thích nghi đối với vùng đất đồi núi ở Tri Tôn.
 
-```{r new-plant}
-new_plant <- dt %>% 
-  filter(plant == "bơ"|plant == "bưởi"|plant == "mãng cầu")
-ggplot(new_plant, aes(x = plant.year, y = yield, color = plant)) +
-  geom_jitter(size = 3)+
-  theme_bw() +
-  ggrepel::geom_text_repel(aes(x = plant.year, y = yield, label = plant), data = new_plant)+
-  xlab("Năm trồng") + ylab("Năng suất")+
-  ggtitle("Biểu đồ 3. Tương quan giữa năm trồng và năng suất của cây bơ, bưởi, mãng cầu")
-```
+![](report_files/figure-docx/new-plant-1.png)<!-- -->
 
 Trong suốt chiều dài phát triển các cây trồng ở vùng Bảy Núi của huyện Tri Tôn, xoài và tầm vông là hai cây trồng có lịch sử lâu đời nhất và vẫn đang tiếp tục được người dân mở rộng thêm diện tích.
 
 
-```{r specific-plant-history}
-ggplot(plant_history, aes(x = plant.year, y = count, color = plant)) +
-  geom_jitter(size = 1)+
-  theme_bw() + theme(legend.position = "none")+
-  facet_wrap(~plant)+
-  xlim(c(1970,2018))+
-  ggtitle("Biểu đồ 4. Lịch sử các loài cây trồng ở khu vực Núi Dài, Tri Tôn")
-```
+![](report_files/figure-docx/specific-plant-history-1.png)<!-- -->
 
 Qua câu hỏi khảo sát "Cây nào trồng mang lại giá trị kinh tế cho gia đình hiện nay?" cho biết tầm vông (23.2%) và xoài cát (14.5%) là hai loại cây trồng mang lại giá trị kinh tế cao nhất cho các nông hộ ở Tri Tôn. Ngoài những cây ăn quả thì ngải bún và nghệ là hai cây trồng cho thu hoạch hằng năm được người nông dân đánh giá cao do thị trường và giá bán ổn định. 
 Hầu hết các loại cây lâm nghiệp đều không mang lại giá trị kinh tế ổn định cho các nông hộ.
 
-```{r efficient-plant}
-economic_plant_dt <- readxl::read_xlsx(here::here("data/economicPlant.xlsx"), sheet = 1)
-
-## reshape data: from wide to long table
-economic_plant_dt_long <- economic_plant_dt %>% 
-  select(!(ends_with("reason"))) %>% 
-  gather(plant,n,2:ncol(.), factor_key = T) %>% 
-  drop_na()
 
 
-economic_plant <- economic_plant_dt_long %>% 
-  group_by(plant) %>% 
-  summarise(count = n()) %>% 
-  mutate(plant = factor(plant),
-         percent = count/sum(count),
-         label = scales::percent(percent)) %>% 
-  arrange(desc(percent))
-```
 
-
-```{r efficient-plant-plot}
-ggplot(economic_plant, aes(x=reorder(plant,percent), y=percent, label=label))+
-  geom_bar(stat = "identity")+
-  geom_text(hjust = -0.3)+
-  coord_flip()+
-  theme_minimal()+
-  scale_y_continuous(labels = scales::percent_format())+
-  xlab("Cây trồng") + ylab("Phần trăm")+
-  ggtitle("Biểu đồ 4. Cây trồng mang lại giá trị kinh tế cho nông hộ")+
-  ylim(0,0.25)
-```
+![](report_files/figure-docx/efficient-plant-plot-1.png)<!-- -->
 
 Đi sâu phân tích từng xã trong huyện Tri Tôn ở khu vực Núi Dài cho thấy cây trồng chủ lực mang lại kinh tế cho các nông hộ có sự khác biệt giữa các xã. 
 Ba Chúc thiên về trồng tầm vông, Lê Trì là các loại xoài và Ô Lâm chủ yếu trồng xoài keo. 
 
 
-```{r economic-plant-village}
-ggplot(economic_plant_dt_long, aes(x = as.factor(village), fill = plant))+
-  geom_bar(aes( y=..count../tapply(..count.., ..x.. ,sum)[..x..]), position="dodge" ) +
-  geom_text(aes( y=..count../tapply(..count.., ..x.. ,sum)[..x..], label=scales::percent(..count../tapply(..count.., ..x.. ,sum)[..x..]) ),
-            stat="count", position=position_dodge(0.9), vjust=-0.5)+
-  ylab('Percent of Cylinder Group, %') +
-  scale_y_continuous(labels = scales::percent)+
-  scale_x_discrete(labels = c("Ba Chuc" = "Ba Chúc", "Le Tri" = "Lê Trì", "O Lam" = "Ô Lâm"))+
-  xlab("Xã") + ylab("Phần trăm")+
-  ggtitle("Cây trồng mang lại giá trị kinh tế phân theo khu vực 3 xã Ba Chúc, Lê Trì, Ô Lâm")
-```
+![](report_files/figure-docx/economic-plant-village-1.png)<!-- -->
 
 
 
 ## Văn hóa và xã hội 
 
-```{r general_data}
-general_info <- read_csv(here::here("data/overview.csv"))
-```
+
 
 - Độ tuổi của người nông dân
 
-```{r age}
-ggplot(general_info, aes(x=age))+
-  geom_histogram()+ theme_bw()
-```
+![](report_files/figure-docx/age-1.png)<!-- -->
 - Thời gian (kinh nghiệm) làm nông nghiệp
 
-```{r agri_working}
-ggplot(general_info, aes(x=agri.working))+
-  geom_histogram() + theme_bw()
-```
+![](report_files/figure-docx/agri_working-1.png)<!-- -->
 
 - Tỉ lệ phần trăm lao động nông nghiệp trong gia đình:
 
-```{r}
-agri_labor <- general_info %>% 
-  mutate(agri.percent = labor.agri/labor.total,
-         non.agri.percent = 1 - agri.percent)
-
-ggplot(agri_labor, aes(x = agri.percent))+
-  geom_histogram() + theme_bw()
-
-ggplot(agri_labor, aes(x = agri.percent))+
-  geom_histogram(aes(y=..density.., fill = village), color = "black")+ theme_bw()+
-  facet_grid(.~village)
-```
+![](report_files/figure-docx/unnamed-chunk-3-1.png)<!-- -->![](report_files/figure-docx/unnamed-chunk-3-2.png)<!-- -->
 
 - Dân tộc:
 
-```{r}
 
-```
 
 
 ## Sinh thái
