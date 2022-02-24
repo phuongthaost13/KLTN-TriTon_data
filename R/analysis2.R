@@ -143,32 +143,33 @@ plant_history <- dt %>%
   summarise(count = n()) 
 
 
-ggplot(plant_history, aes(x = plant.year, y = count, color = plant)) +
+p7 <- ggplot(plant_history, aes(x = plant.year, y = count, color = plant)) +
   geom_jitter(height = 0.1)+
   theme_bw() + theme(legend.position = "none")+
   ggrepel::geom_text_repel(aes(x = plant.year, y = count, label = plant), max.overlaps = 20, data = plant_history)+
   annotate("point", x = 1993, y = 2.5, colour = "black", size = 3)+
   annotate("text", x = 1993, y = 2.5, label = "1993", colour = "black", vjust = -0.5)+
   xlab("Năm trồng") + ylab("Tổng số mô hình trồng loại cây")+
-  ggtitle("Biểu đồ 2. Thời điểm cây được trồng")
+  ggtitle("Biểu đồ 7. Thời điểm cây được trồng")
 
 ## các cây trồng mới sau năm 2010
 new_plant <- dt %>% 
   filter(plant == "bơ"|plant == "bưởi"|plant == "mãng cầu")
-ggplot(new_plant, aes(x = plant.year, y = yield, color = plant)) +
+
+p8 <- ggplot(new_plant, aes(x = plant.year, y = yield, color = plant)) +
   geom_jitter(size = 3)+
   theme_bw() +
   ggrepel::geom_text_repel(aes(x = plant.year, y = yield, label = plant), data = new_plant)+
   xlab("Năm trồng") + ylab("Năng suất")+
-  ggtitle("Biểu đồ 3. Tương quan giữa năm trồng và năng suất của cây bơ, bưởi, mãng cầu")
+  ggtitle("Biểu đồ 8. Tương quan giữa năm trồng và năng suất của cây bơ, bưởi, mãng cầu")
 
 ## Lịch sử phát triển của từng loại cây trồng
-ggplot(plant_history, aes(x = plant.year, y = count, color = plant)) +
+p9 <- ggplot(plant_history, aes(x = plant.year, y = count, color = plant)) +
   geom_jitter(size = 1)+
   theme_bw() + theme(legend.position = "none")+
   facet_wrap(~plant)+
   xlim(c(1970,2018))+
-  ggtitle("Biểu đồ 4. Lịch sử các loài cây trồng ở khu vực Núi Dài, Tri Tôn")
+  ggtitle("Biểu đồ 9. Lịch sử các loài cây trồng ở khu vực Núi Dài, Tri Tôn")
 
 ## Số lượng cây trồng và diện tích trồng
 
@@ -208,8 +209,12 @@ forest_number_plot <- ggplot(forest_number, aes(x = reorder(plant, number), y = 
   ggtitle("Số lượng cây rừng")
 
 
-ggarrange(caq_number_plot, herb_number_plot, forest_number_plot,
-          ncol = 2, nrow = 2)
+p10 <- ggarrange(caq_number_plot, herb_number_plot, forest_number_plot,
+          ncol = 2, nrow = 2) %>% 
+  annotate_figure(p10, top = text_grob(" "),
+                fig.lab.pos = "top.left",
+                fig.lab = "Biểu đồ 10. Số lượng cây trồng",
+                fig.lab.size = 13)
 
 ## Diện tích cây trồng
 # cây ăn quả
@@ -247,8 +252,12 @@ forest_area_plot <- ggplot(forest_area, aes(x = reorder(plant, area), y = area))
   xlab("Cây trồng") + ylab("Diện tích (ha)")+
   ggtitle("Diện tích cây rừng")
 
-ggarrange(caq_area_plot, herb_area_plot, forest_area_plot,
-          ncol = 2, nrow = 2)
+p11 <- ggarrange(caq_area_plot, herb_area_plot, forest_area_plot,
+          ncol = 2, nrow = 2) %>% 
+  annotate_figure(p10, top = text_grob(" "),
+                  fig.lab.pos = "top.left",
+                  fig.lab = "Biểu đồ 11. Diện tích cây trồng",
+                  fig.lab.size = 13)
 
 
 # Các nhân tố ảnh hưởng đến quyết định trồng cây của người nông dân
@@ -260,7 +269,7 @@ age_plot <- ggplot(general_info, aes(x=age, y = ..density..))+
   geom_histogram()+ theme_bw() +
   scale_y_continuous(labels = scales::percent_format())+
   xlab("Tuổi") + ylab("Phần trăm") +
-  ggtitle("Tuổi của chủ hộ") + geom_density(size=2, color = "red")+
+  ggtitle("Biểu đồ 12. Tuổi của chủ hộ") + geom_density(size=2, color = "red")+
   geom_vline(xintercept = 52, color = "red", size = 2)
 
 ## adding mean and sd to the plot
@@ -269,7 +278,7 @@ table <- data.frame("mean" = round(mean(general_info$age, na.rm = T)),
 table.p <- ggtexttable(table, rows = NULL, 
                        theme = ttheme(("mOrange")))
 
-age_plot + annotation_custom(ggplotGrob(table.p),
+p12 <- age_plot + annotation_custom(ggplotGrob(table.p),
                              xmin = 65, ymin = 0.05,
                              xmax = 80)
 
@@ -278,7 +287,7 @@ agri_working_plot <- ggplot(general_info, aes(x=agri.working, y = ..density..))+
   geom_histogram()+ theme_bw() +
   scale_y_continuous(labels = scales::percent_format())+
   xlab("Thơi gian (năm)") + ylab("Phần trăm") +
-  ggtitle("Kinh nghiệm làm nông nghiệp") + geom_density(size=2, color = "red")+
+  ggtitle("Biểu đồ 13. Kinh nghiệm làm nông nghiệp") + geom_density(size=2, color = "red")+
   geom_vline(xintercept = 27, color = "red", size = 2)
 
 ## adding mean and sd to the plot
@@ -288,7 +297,7 @@ table_agri_working <- data.frame("mean" = round(mean(general_info$agri.working, 
 table_agri_working <- ggtexttable(table_agri_working, rows = NULL, 
                                   theme = ttheme(("mOrange")))
 
-agri_working_plot + annotation_custom(ggplotGrob(table_agri_working),
+p13 <- agri_working_plot + annotation_custom(ggplotGrob(table_agri_working),
                                       xmin = 40, ymin = 0.08,
                                       xmax = 50)  
 
@@ -297,22 +306,20 @@ agri_labor <- general_info %>%
   mutate(agri.percent = labor.agri/labor.total,
          non.agri.percent = 1 - agri.percent)
 
-ggplot(agri_labor, aes(x = agri.percent))+
-  geom_histogram() + theme_bw()
-
-ggplot(agri_labor, aes(x = agri.percent))+
+p14 <- ggplot(agri_labor, aes(x = agri.percent))+
   geom_histogram(aes(y=..density.., fill = village), color = "black")+ theme_bw()+
   facet_grid(.~village)+
-  theme(legend.position = "none")
+  theme(legend.position = "none")+
+  ggtitle("Biểu đồ 14. Tỉ lệ lao động nông nghiệp")
 
 
 ## Dân tộc
-ggplot(general_info, aes(x = ethnic, group = village))+
+p15 <- ggplot(general_info, aes(x = ethnic, group = village))+
   geom_bar(aes(y=..prop.., fill = factor(..x..)), stat = "count", color = "black")+ theme_bw()+
   facet_grid(.~village)+
   scale_y_continuous(labels = scales::percent_format())+
   xlab("Dân tộc") + ylab("Phần trăm")+
-  ggtitle("Tỉ trọng dân tộc ở ba xã Ba Chúc, Lê Trì, Ô Lâm thuộc núi Dài, Tri Tôn")+
+  ggtitle("Biểu đồ 15. Tỉ trọng dân tộc ở ba xã Ba Chúc, Lê Trì, Ô Lâm thuộc núi Dài, Tri Tôn")+
   theme(legend.position = "none")
 
 
@@ -358,13 +365,20 @@ slope_status_plot <- ggplot(slope_status, aes(x = land.slope, group = village))+
   theme(legend.position = "none")
 
 
-ggarrange(water_status_plot, soil_status_plot, slope_status_plot,
-          ncol = 2, nrow = 2)
+p16 <- ggarrange(water_status_plot, soil_status_plot, slope_status_plot,
+          ncol = 2, nrow = 2) %>% 
+  annotate_figure(p10, top = text_grob(" "),
+                  fig.lab.pos = "top.left",
+                  fig.lab = "Biểu đồ 16. Đặc điểm sinh thái Tri Tôn",
+                  fig.lab.size = 13)
+
+
+## correlation between age and plant
 
 
 
 ## plots export
-for(i in 1:6) {
+for(i in 16) {
   png(paste0("fig/plot", i,".png"),
       width = 1056, height = 545)
   p <- get(paste("p",i,sep=""))
